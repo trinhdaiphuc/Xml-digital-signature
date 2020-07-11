@@ -40,14 +40,12 @@ app.post(
   },
 );
 
-app.post("/verify", (req, res) => {
+app.post("/verify", async (req, res) => {
   if (!req.body || !req.body.data) res.send("Invalid data");
-  validateXml(req.body.data, (result, error) => {
-    if (error) {
-      res.send(error);
-    }
-    res.send(result);
+  const result = await validateXml(req.body.data).catch((e) => {
+    res.status(500).send(e);
   });
+  res.status(200).send(result);
 });
 
 app.listen(port, () => {

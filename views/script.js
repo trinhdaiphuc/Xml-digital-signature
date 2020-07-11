@@ -41,5 +41,8 @@ $("#verify").click(function (e) {
     success: function (data) {
       alert(data);
     },
+    error: function (e) {
+      alert(e);
+    },
   });
 });

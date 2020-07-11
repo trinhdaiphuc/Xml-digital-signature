@@ -1,1 +1,8 @@
 node_modules/
+
+// Key files
+*.xml
+*.pem
+*.key
+*.crt
+*.pfx
