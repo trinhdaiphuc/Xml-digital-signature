@@ -28,10 +28,14 @@ app.post(
     if (!req.files || !req.files.xml || !req.files.private || !req.files.public) {
       res.redirect("/");
     }
+    const hashAlgorithm = "http://www.w3.org/2001/04/xmlenc#sha256";
+    const signatureAlgorithm = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256";
     const output = await signXml(
       req.files.xml[0].buffer,
       req.files.private[0].buffer,
       req.files.public[0].buffer,
+      hashAlgorithm,
+      signatureAlgorithm,
     ).catch((e) => {
       console.log("[INFO]:::: e", e);
     });
