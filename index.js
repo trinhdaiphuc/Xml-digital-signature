@@ -30,12 +30,14 @@ app.post(
     }
     const hashAlgorithm = "http://www.w3.org/2001/04/xmlenc#sha256";
     const signatureAlgorithm = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256";
+    const canonicalizeAlgorithm = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315";
     const output = await signXml(
       req.files.xml[0].buffer,
       req.files.private[0].buffer,
       req.files.public[0].buffer,
       hashAlgorithm,
       signatureAlgorithm,
+      canonicalizeAlgorithm,
     ).catch((e) => {
       console.log("[INFO]:::: e", e);
     });
@@ -47,6 +49,7 @@ app.post(
 app.post("/verify", async (req, res) => {
   if (!req.body || !req.body.data) res.send("Invalid data");
   const result = await validateXml(req.body.data).catch((e) => {
+    console.log("[INFO]:::: e", e);
     res.status(500).send(e);
   });
   res.status(200).send(result);

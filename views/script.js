@@ -22,6 +22,12 @@ $("#sign").submit(function (e) {
   });
 });
 
+$("#clear").click(function (e) {
+  e.preventDefault();
+  $("#verify-content").select();
+  $("#verify-content").val('');
+});
+
 $("#copy").click(function (e) {
   e.preventDefault();
   $("#sign-content").select();
@@ -42,7 +48,7 @@ $("#verify").click(function (e) {
       alert(data);
     },
     error: function (e) {
-      alert(e);
+      alert(`Error: ${JSON.stringify(e)}`);
     },
   });
 });
